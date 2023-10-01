@@ -1,0 +1,28 @@
+Question Link:-
+https://leetcode.com/problems/find-the-duplicate-number/description/
+
+CODE:-
+
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int i = 0;
+        int ind;
+        while(i < nums.length){
+            ind = nums[i] - 1;
+            if(nums[ind] != nums[i]){
+                int temp = nums[ind];
+                nums[ind] = nums[i];
+                nums[i] = temp;
+            }
+            else{
+                i++;
+            }
+        }
+        for(int j=0;j<nums.length;j++){
+            if(nums[j] != j + 1){
+                return nums[j];
+            }
+        }
+        return -1;
+    }
+}
