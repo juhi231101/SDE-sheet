@@ -1,0 +1,69 @@
+Reverse Nodes in k-Group
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        int l = 1, r = k, length = 1;
+        ListNode temp = head;
+        while(temp != null){
+            length++;
+            temp = temp.next;
+        }
+        while(r < length){
+        ListNode left = head;
+        ListNode right = head;
+        ListNode mark = null;
+        for(int i=1;i<l;i++){
+            mark = left;
+            left = left.next;
+        }
+        for(int i=1;i<r;i++){
+            right = right.next;
+        }
+        ListNode p = left;
+        ListNode c = p.next;
+        ListNode n = null;
+        if(c != null){
+            n  = c.next;
+        }
+        while(p != right){
+            c.next = p;
+            p = c;
+            c = n;
+            if(n!= null){
+                n = n.next;
+            }     
+        }
+        
+        if(c == null && left == head ){
+            head = right;
+            left.next = null;
+        }
+        else if(left == head){
+            left.next = c;
+            head = right;
+        }
+        else if(c == null){
+            left.next = null;
+            mark.next = right;
+        }
+        else{
+            mark.next = p;
+            left.next = c;
+        }
+        l += k;
+        r += k;
+        }
+        return head;
+    }
+
+}
