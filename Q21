@@ -1,0 +1,42 @@
+Reorder List
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head.next == null || head.next.next == null){
+            return;
+        }
+        ListNode f = head;
+        ListNode l = head;
+        ListNode prev = null;
+        while(l.next != null){
+            prev = l;
+            l = l.next;
+        }
+        
+        while(f.next != null){
+            l.next = f.next;
+            f.next = l;
+            prev.next = null;
+            l = head;
+            while(l.next != null){
+                prev = l;
+                l = l.next;
+            }
+            if(f.next == prev || f.next.next == prev){
+                return;
+            }
+            f = f.next.next;
+        }
+    }
+}
