@@ -1,0 +1,29 @@
+Search in Rotated Sorted Array
+
+
+class Solution {
+    public int search(int[] nums, int target) {
+        return binSea(nums,0,nums.length-1,target);
+    }
+    public int binSea(int[] arr,int l, int h,int t){
+        if(l > h)return -1;
+        int mid = l +(h-l)/2;
+        if(arr[mid] == t)return mid;
+        if(arr[mid] >= arr[l]){
+            if(t >= arr[l] && t <= arr[mid]){
+                return binSea(arr,l,mid-1,t);
+            }
+            else{
+                return binSea(arr,mid+1,h,t);
+            }
+        }
+        else{
+            if(t >= arr[mid] && t <= arr[h]){
+                return binSea(arr,mid+1,h,t);
+            }
+            else{
+                return binSea(arr,l,mid-1,t);
+            }
+        }
+    }
+}
